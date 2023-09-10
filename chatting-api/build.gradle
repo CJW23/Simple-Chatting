@@ -1,0 +1,14 @@
+
+dependencies {
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = true
+}

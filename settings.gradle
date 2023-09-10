@@ -1,0 +1,5 @@
+rootProject.name = 'simple-chatting'
+include 'core'
+include 'chatting-api'
+include 'chatting-stream-server'
+
