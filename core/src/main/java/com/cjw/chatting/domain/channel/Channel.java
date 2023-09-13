@@ -1,5 +1,6 @@
 package com.cjw.chatting.domain.channel;
 
+import com.cjw.chatting.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "CHANNEL")
-public class Channel {
+public class Channel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHANNEL_ID", nullable = false)

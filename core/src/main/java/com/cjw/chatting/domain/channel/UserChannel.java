@@ -1,5 +1,6 @@
 package com.cjw.chatting.domain.channel;
 
+import com.cjw.chatting.domain.common.BaseEntity;
 import com.cjw.chatting.domain.message.Message;
 import com.cjw.chatting.domain.user.User;
 import jakarta.persistence.*;
@@ -9,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "\"USER_CHANNEL\"")
-public class UserChannel {
+@Table(name = "USER_CHANNEL")
+public class UserChannel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_CHANNEL_ID", nullable = false)
