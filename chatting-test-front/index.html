@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        const socket = new SockJS('http://localhost:8090/ws-simple-chatting');
+        const stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, (frame) => {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages/1', (message) => {
+                showMessage(JSON.parse(message.body).content);
+            });
+        });
+
+        const sendMessage = () => {
+            const content = document.getElementById('messageContent').value;
+            stompClient.send('/simple-chatting/sendMessage/1', {}, JSON.stringify({'content': content}));
+        }
+
+        const showMessage = (message) => {
+            const output = document.getElementById('output');
+            output.innerHTML += '<p>' + message + '</p>';
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="messageContent" placeholder="Enter message">
+<button onclick="sendMessage()">Send</button>
+<div id="output"></div>
+</body>
+</html>
