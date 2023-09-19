@@ -3,12 +3,11 @@ package com.cjw.chatting.controller;
 import com.cjw.chatting.dto.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -33,7 +32,7 @@ public class ChattingController {
      */
     @MessageMapping("test/{channelId}/{userName}")
     //@SendToUser("/topic/test")
-    public Message test(SimpMessageHeaderAccessor headerAccessor, Principal principal, @DestinationVariable String channelId, @DestinationVariable String userName, Message message) {
+    public void test(SimpMessageHeaderAccessor headerAccessor, Principal principal, @DestinationVariable String channelId, @DestinationVariable String userName, Message message) {
         log.info("header: " + headerAccessor.getSessionId());
         log.info("principal: " + principal);
         log.info("ch : " + channelId);
@@ -43,6 +42,6 @@ public class ChattingController {
         //** 특정 유저에게 전송시 "/user" + userid + destination 로 토픽 전송함 **
         //즉 "/user/1/test" 해당 토픽으로 메세지 전송
         messagingTemplate.convertAndSendToUser(principal.getName(), "/test", message);
-        return message;
+        messagingTemplate.convertAndSend("/topic/test", message);
     }
 }
