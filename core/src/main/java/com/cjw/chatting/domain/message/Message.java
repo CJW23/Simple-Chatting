@@ -34,7 +34,6 @@ public class Message extends BaseEntity {
 
     public void setUserChannel(UserChannel userChannel) {
         this.userChannel = userChannel;
-        this.userChannel.addMessage(this);
     }
 
     public static Message createCommon(EventPayloadSaveMessage payload) {

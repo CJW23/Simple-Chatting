@@ -33,7 +33,7 @@ public class MessageService {
         UserChannel userChannel = this.channelService.findUserChannel(payload.getUserId(), payload.getChannelId());
         if (isEmpty(userChannel)) throw BasicException.ofBadRequest("존재하지 않는 유저 채널입니다.");
 
-        message.setUserChannel(userChannel);
+        userChannel.addMessage(message);
 
         this.messageRepository.save(message);
     }

@@ -3,6 +3,10 @@ package com.cjw.chatting.service;
 import com.cjw.chatting.domain.channel.Channel;
 import com.cjw.chatting.domain.channel.UserChannel;
 import com.cjw.chatting.domain.channel.id.UserChannelId;
+import com.cjw.chatting.domain.user.User;
+import com.cjw.chatting.dto.ChannelDto;
+import com.cjw.chatting.dto.ChannelDto.CreateChannelDto;
+import com.cjw.chatting.dto.exception.BasicException;
 import com.cjw.chatting.repository.ChannelRepository;
 import com.cjw.chatting.repository.UserChannelRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +20,22 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Transactional(readOnly = true)
 public class ChannelService {
     private final ChannelRepository channelRepository;
+    private final UserService userService;
     private final UserChannelRepository userChannelRepository;
+
+    @Transactional
+    public void createChannel(CreateChannelDto createChannelDto) {
+        User user = this.userService.findUserById(createChannelDto.getCreateUserId());
+        if (isEmpty(user)) throw BasicException.ofBadRequest("유저가 존재하지 않습니다.");
+        //채널 생성
+        Channel channel = Channel.createCommon(createChannelDto);
+        //유저 채널 생성
+        UserChannel userChannel = UserChannel.create(channel, user, null);
+
+        //관계
+        user.addUserChannel(userChannel);
+        channel.addUserChannel(userChannel);
+    }
 
     public Channel findChannelById(Long channelId) {
         if (isEmpty(channelId)) return null;

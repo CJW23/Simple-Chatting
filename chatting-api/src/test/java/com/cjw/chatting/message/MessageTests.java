@@ -1,5 +1,6 @@
 package com.cjw.chatting.message;
 
+import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
 import com.cjw.chatting.service.MessageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ public class MessageTests {
     @Rollback
     void 메세지_저장_테스트() {
         //given
-
+       /* EventPayloadSaveMessage payload = EventPayloadSaveMessage.builder()
+                .message("test")
+                .channelId()*/
         //when
 
         //then
