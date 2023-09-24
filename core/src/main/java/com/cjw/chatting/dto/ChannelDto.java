@@ -12,6 +12,9 @@ public class ChannelDto {
         private Long createUserId;
         private String channelName;
         private String channelDescription;
+    }
+
+    public static class ChannelResponseDto {
 
     }
 }

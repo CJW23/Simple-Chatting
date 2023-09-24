@@ -1,13 +1,14 @@
 package com.cjw.chatting.domain.common;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -15,19 +16,21 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATE_DATE")
+    @CreatedDate
     private LocalDateTime createDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATE_DATE")
+    @LastModifiedDate
     private LocalDateTime updateDate;
 
     @Column(name = "CREATE_ID")
+    @CreatedBy
     private String createId;
 
     @Column(name = "UPDATE_ID")
+    @LastModifiedBy
     private String updateId;
 }

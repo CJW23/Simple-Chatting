@@ -1,7 +1,6 @@
 package com.cjw.chatting.domain.channel;
 
 import com.cjw.chatting.domain.common.BaseEntity;
-import com.cjw.chatting.dto.ChannelDto;
 import com.cjw.chatting.dto.ChannelDto.CreateChannelDto;
 import com.cjw.chatting.dto.exception.BasicException;
 import jakarta.persistence.*;
@@ -9,12 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.util.ObjectUtils.*;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Entity
 @Getter
@@ -55,5 +53,10 @@ public class Channel extends BaseEntity {
         }
         this.userChannels.add(userChannel);
         userChannel.setChannel(this);
+    }
+
+    public boolean isRegisterUser(Long userId) {
+        if(isEmpty(this.userChannels)) return false;
+        return this.userChannels.stream().anyMatch(uc -> userId.equals(uc.getUser().getUserId()));
     }
 }

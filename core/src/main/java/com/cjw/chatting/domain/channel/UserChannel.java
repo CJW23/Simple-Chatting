@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -26,21 +27,16 @@ import static org.springframework.util.ObjectUtils.*;
 @Table(name = "USER_CHANNEL")
 public class UserChannel extends BaseEntity {
     @Id
-    @Column(name = "CHANNEL_ID")
-    private Long channelId;
-
-    @Id
-    @Column(name = "USER_ID")
-    private Long userId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CHANNEL_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CHANNEL_ID")
     private Channel channel;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
+    @Builder.Default
     @OneToMany(mappedBy = "userChannel", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 

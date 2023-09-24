@@ -24,7 +24,7 @@ public class ChannelService {
     private final UserChannelRepository userChannelRepository;
 
     @Transactional
-    public void createChannel(CreateChannelDto createChannelDto) {
+    public Long createChannel(CreateChannelDto createChannelDto) {
         User user = this.userService.findUserById(createChannelDto.getCreateUserId());
         if (isEmpty(user)) throw BasicException.ofBadRequest("유저가 존재하지 않습니다.");
         //채널 생성
@@ -35,6 +35,10 @@ public class ChannelService {
         //관계
         user.addUserChannel(userChannel);
         channel.addUserChannel(userChannel);
+
+        channelRepository.save(channel);
+
+        return channel.getChannelId();
     }
 
     public Channel findChannelById(Long channelId) {

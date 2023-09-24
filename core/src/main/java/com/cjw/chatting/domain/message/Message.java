@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -29,7 +28,10 @@ public class Message extends BaseEntity {
     private String messageText;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_CHANNEL_ID")
+    @JoinColumns({
+            @JoinColumn(name = "USER_ID"),
+            @JoinColumn(name = "CHANNEL_ID")
+    })
     private UserChannel userChannel;
 
     public void setUserChannel(UserChannel userChannel) {
