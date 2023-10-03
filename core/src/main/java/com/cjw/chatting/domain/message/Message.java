@@ -41,7 +41,7 @@ public class Message extends BaseEntity {
     public static Message createCommon(EventPayloadSaveMessage payload) {
         validate(payload);
         return Message.builder()
-                .messageText(payload.getMessage())
+                .messageText(payload.getMessage().getContent())
                 .build();
     }
 

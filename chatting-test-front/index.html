@@ -10,17 +10,23 @@
 
         stompClient.connect({}, (frame) => {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/user/1/test', (message) => {
+            const channelId = 5
+            stompClient.subscribe(`/topic/channel/${channelId}`, (message) => {
+                showMessage(JSON.parse(message.body).content);
+            })
+            /*stompClient.subscribe('/user/1/test', (message) => {
                 showMessage(JSON.parse(message.body).content);
             });
             stompClient.subscribe('/topic/test', (message) => {
                 showMessage(JSON.parse(message.body).content);
-            });
+            });*/
         });
 
         const sendMessage = () => {
             const content = document.getElementById('messageContent').value;
-            stompClient.send('/simple-chatting/test/1/3', {}, JSON.stringify({'content': content}));
+            const channelId = 5;
+            stompClient.send(`/simple-chatting/messages/${channelId}`, {}, JSON.stringify({'content': content}));
+            //stompClient.send('/simple-chatting/test/1/3', {}, JSON.stringify({'content': content}));
         }
 
         const showMessage = (message) => {

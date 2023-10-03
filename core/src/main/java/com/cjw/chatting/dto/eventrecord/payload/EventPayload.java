@@ -1,5 +1,12 @@
 package com.cjw.chatting.dto.eventrecord.payload;
 
-public class EventPayload {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
+@NoArgsConstructor
+@Getter
+public abstract class EventPayload {
+    private String topic;
 }

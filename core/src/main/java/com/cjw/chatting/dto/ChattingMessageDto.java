@@ -3,6 +3,6 @@ package com.cjw.chatting.dto;
 import lombok.Getter;
 
 @Getter
-public class Message {
+public class ChattingMessageDto {
     private String content;
 }

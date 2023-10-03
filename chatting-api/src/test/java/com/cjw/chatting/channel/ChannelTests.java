@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@Rollback(value = true)
+@Rollback
 public class ChannelTests {
     @Autowired
     private UserRepository userRepository;

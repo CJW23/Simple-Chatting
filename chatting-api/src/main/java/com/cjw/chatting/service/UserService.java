@@ -16,10 +16,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createUser(CreateUserDto createUserDto) {
+    public Long createUser(CreateUserDto createUserDto) {
         User user = User.create(createUserDto);
         //닉네임 중복체크?
-        this.userRepository.save(user);
+        return this.userRepository.save(user).getUserId();
     }
 
     public User findUserById(Long userId) {

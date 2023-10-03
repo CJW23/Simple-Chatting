@@ -1,6 +1,8 @@
 package com.cjw.chatting.controller;
 
-import com.cjw.chatting.dto.Message;
+import com.cjw.chatting.dto.ChattingMessageDto;
+import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
+import com.cjw.chatting.service.kafka.ProducerEventGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -15,13 +17,18 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class ChattingController {
+public class ChattingSocketController {
     private final SimpMessagingTemplate messagingTemplate;
-    @MessageMapping("/sendMessage/{channelId}")
-    @SendTo("/topic/messages/{channelId}")
-    public Message message(@DestinationVariable String channelId, Message message) {
+    private final ProducerEventGateway producerEventGateway;
+
+    @MessageMapping("/messages/{channelId}") //메세지 전송 URL
+    @SendTo("/topic/channel/{channelId}")  //다른 구독한 유저에게
+    public ChattingMessageDto message(@DestinationVariable Long channelId, ChattingMessageDto message) {
         log.info("message : " + message.getContent());
         log.info("channelId : " + channelId);
+        //카프카 메세지 저장 이벤트
+        this.producerEventGateway.send(EventPayloadSaveMessage.of(channelId, 5L, message));
+        //다른 구독자(채널 참여자) 소켓 전송
         return message;
     }
 
@@ -32,7 +39,7 @@ public class ChattingController {
      */
     @MessageMapping("test/{channelId}/{userName}")
     //@SendToUser("/topic/test")
-    public void test(SimpMessageHeaderAccessor headerAccessor, Principal principal, @DestinationVariable String channelId, @DestinationVariable String userName, Message message) {
+    public void test(SimpMessageHeaderAccessor headerAccessor, Principal principal, @DestinationVariable String channelId, @DestinationVariable String userName, ChattingMessageDto message) {
         log.info("header: " + headerAccessor.getSessionId());
         log.info("principal: " + principal);
         log.info("ch : " + channelId);

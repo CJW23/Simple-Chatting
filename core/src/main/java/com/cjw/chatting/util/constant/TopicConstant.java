@@ -1,5 +1,5 @@
 package com.cjw.chatting.util.constant;
 
 public class TopicConstant {
-    public static final String TOPIC_SAVE_MESSAGE = "save-message";
+    public static final String TOPIC_SAVE_MESSAGE = "topic-save-message";
 }

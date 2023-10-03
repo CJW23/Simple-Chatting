@@ -16,6 +16,6 @@ public class MessageListener {
 
     @KafkaListener(topics = "${spring.kafka.topic.topic-save-message}", groupId = "${spring.kafka.group-id}")
     public void saveMessageConsume(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
-        gateway.handleEvent(record, acknowledgment);
+        this.gateway.handleEvent(record, acknowledgment);
     }
 }

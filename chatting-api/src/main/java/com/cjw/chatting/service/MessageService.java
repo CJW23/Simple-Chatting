@@ -9,6 +9,7 @@ import com.cjw.chatting.dto.exception.BasicException;
 import com.cjw.chatting.repository.ChannelRepository;
 import com.cjw.chatting.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -17,6 +18,7 @@ import static org.springframework.util.ObjectUtils.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional(readOnly = true)
 public class MessageService {
     private final MessageRepository messageRepository;
@@ -25,6 +27,9 @@ public class MessageService {
     @Transactional
     public void saveMessage(EventRecord eventRecord) {
         EventPayloadSaveMessage payload = (EventPayloadSaveMessage) eventRecord.getEventPayload();
+
+        log.info("==============saveMessagePayload================");
+        log.info(payload.toString());
 
         //기본 메세지 엔티티 생성
         Message message = Message.createCommon(payload);
