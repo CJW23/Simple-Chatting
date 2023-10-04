@@ -2,7 +2,7 @@ package com.cjw.chatting.service;
 
 import com.cjw.chatting.domain.user.User;
 import com.cjw.chatting.dto.UserDto.CreateUserDto;
-import com.cjw.chatting.repository.UserRepository;
+import com.cjw.chatting.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

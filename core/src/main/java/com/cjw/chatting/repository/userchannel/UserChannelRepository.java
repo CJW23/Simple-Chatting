@@ -1,4 +1,4 @@
-package com.cjw.chatting.repository;
+package com.cjw.chatting.repository.userchannel;
 
 import com.cjw.chatting.domain.channel.UserChannel;
 import com.cjw.chatting.domain.channel.id.UserChannelId;

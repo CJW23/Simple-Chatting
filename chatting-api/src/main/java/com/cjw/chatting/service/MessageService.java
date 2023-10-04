@@ -1,18 +1,15 @@
 package com.cjw.chatting.service;
 
-import com.cjw.chatting.domain.channel.Channel;
 import com.cjw.chatting.domain.channel.UserChannel;
 import com.cjw.chatting.domain.message.Message;
 import com.cjw.chatting.dto.eventrecord.EventRecord;
 import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
 import com.cjw.chatting.dto.exception.BasicException;
-import com.cjw.chatting.repository.ChannelRepository;
-import com.cjw.chatting.repository.MessageRepository;
+import com.cjw.chatting.repository.message.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 import static org.springframework.util.ObjectUtils.*;
 
