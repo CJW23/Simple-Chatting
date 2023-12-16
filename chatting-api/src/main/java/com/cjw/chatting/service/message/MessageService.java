@@ -1,4 +1,4 @@
-package com.cjw.chatting.service;
+package com.cjw.chatting.service.message;
 
 import com.cjw.chatting.domain.channel.UserChannel;
 import com.cjw.chatting.domain.message.Message;
@@ -6,6 +6,8 @@ import com.cjw.chatting.dto.eventrecord.EventRecord;
 import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
 import com.cjw.chatting.dto.exception.BasicException;
 import com.cjw.chatting.repository.message.MessageRepository;
+import com.cjw.chatting.service.channel.ChannelService;
+import com.cjw.chatting.service.userchannel.UserChannelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import static org.springframework.util.ObjectUtils.*;
 @Transactional(readOnly = true)
 public class MessageService {
     private final MessageRepository messageRepository;
-    private final ChannelService channelService;
+    private final UserChannelService userChannelService;
 
     @Transactional
     public void saveMessage(EventRecord eventRecord) {
@@ -32,8 +34,8 @@ public class MessageService {
         Message message = Message.createCommon(payload);
 
         //해당 메세지 전송 유저 채널
-        UserChannel userChannel = this.channelService.findUserChannel(payload.getUserId(), payload.getChannelId());
-        if (isEmpty(userChannel)) throw BasicException.ofBadRequest("존재하지 않는 유저 채널입니다.");
+        UserChannel userChannel = this.userChannelService.findUserChannel(payload.getUserId(), payload.getChannelId());
+        if (!isEmpty(userChannel)) throw BasicException.ofBadRequest("존재하지 않는 유저 채널입니다.");
 
         userChannel.addMessage(message);
 

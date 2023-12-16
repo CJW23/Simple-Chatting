@@ -1,7 +1,6 @@
 package com.cjw.chatting.message;
 
-import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
-import com.cjw.chatting.service.MessageService;
+import com.cjw.chatting.service.message.MessageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

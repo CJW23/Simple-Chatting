@@ -3,7 +3,7 @@ package com.cjw.chatting.user;
 import com.cjw.chatting.CommonInit;
 import com.cjw.chatting.domain.user.User;
 import com.cjw.chatting.givenpackage.GivenPackage;
-import com.cjw.chatting.service.UserService;
+import com.cjw.chatting.service.user.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

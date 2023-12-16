@@ -12,8 +12,11 @@ import org.springframework.kafka.listener.MessageListenerContainer;
 @Configuration
 @Slf4j
 public class KafkaErrorHandler implements CommonErrorHandler {
-    @Override
-    public void handleOtherException(Exception thrownException, Consumer<?, ?> consumer, MessageListenerContainer container, boolean batchListener) {
-        log.error("=============handleOtherException Test==========");
-    }
+    /*@Override
+    public boolean handleOne(Exception thrownException, ConsumerRecord<?, ?> record, Consumer<?, ?> consumer, MessageListenerContainer container) {
+        log.error("===========" + record.offset() + "=========");
+
+        return true;
+        // return CommonErrorHandler.super.handleOne(thrownException, record, consumer, container);
+    }*/
 }

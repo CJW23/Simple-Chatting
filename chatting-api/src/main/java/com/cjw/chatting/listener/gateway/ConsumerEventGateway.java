@@ -2,10 +2,10 @@ package com.cjw.chatting.listener.gateway;
 
 import com.cjw.chatting.dto.eventrecord.EventRecord;
 import com.cjw.chatting.dto.eventrecord.payload.EventPayloadSaveMessage;
-import com.cjw.chatting.service.MessageService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.cjw.chatting.service.message.MessageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,7 @@ import static com.cjw.chatting.util.constant.TopicConstant.TOPIC_SAVE_MESSAGE;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ConsumerEventGateway {
     private final MessageService messageService;
     private final ObjectMapper mapper;
@@ -29,7 +30,8 @@ public class ConsumerEventGateway {
                             acknowledgment
                     ));
                     break;
-
+                default:
+                    throw new RuntimeException("awd");
             }
         } catch (Exception e) {
             //재시도 고려

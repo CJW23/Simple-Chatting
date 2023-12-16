@@ -1,7 +1,8 @@
-package com.cjw.chatting.service;
+package com.cjw.chatting.service.user;
 
 import com.cjw.chatting.domain.user.User;
 import com.cjw.chatting.dto.UserDto.CreateUserDto;
+import com.cjw.chatting.dto.exception.BasicException;
 import com.cjw.chatting.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,12 @@ public class UserService {
         if (isEmpty(userId)) return null;
 
         return this.userRepository.findById(userId).orElse(null);
+    }
+
+    public User findUserByIdWithException(Long userId) {
+        if (isEmpty(userId)) throw BasicException.ofBadRequest("userId is null");
+
+        return this.userRepository.findById(userId)
+                .orElseThrow(() -> BasicException.ofBadRequest(String.format("userId: %d user not exist", userId)));
     }
 }

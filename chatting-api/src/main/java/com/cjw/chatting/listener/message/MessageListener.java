@@ -4,7 +4,10 @@ import com.cjw.chatting.listener.gateway.ConsumerEventGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.kafka.annotation.DltHandler;
+import org.springframework.kafka.annotation.EnableKafkaRetryTopic;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +21,5 @@ public class MessageListener {
     public void saveMessageConsume(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
         this.gateway.handleEvent(record, acknowledgment);
     }
+
 }

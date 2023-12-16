@@ -5,7 +5,7 @@ import com.cjw.chatting.domain.channel.Channel;
 import com.cjw.chatting.domain.user.User;
 import com.cjw.chatting.givenpackage.GivenPackage;
 import com.cjw.chatting.repository.user.UserRepository;
-import com.cjw.chatting.service.ChannelService;
+import com.cjw.chatting.service.channel.ChannelService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

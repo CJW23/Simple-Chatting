@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -36,9 +37,9 @@ public class Channel extends BaseEntity {
     private List<UserChannel> userChannels = new ArrayList<>();
 
     public static Channel createCommon(CreateChannelDto dto) {
-        if(isEmpty(dto.getCreateUserId()))
+        if (isEmpty(dto.getCreateUserId()))
             throw BasicException.ofBadRequest("채널을 생성한 유저가 존재하지 않습니다.");
-        if(isEmpty(dto.getChannelName()))
+        if (isEmpty(dto.getChannelName()))
             throw BasicException.ofBadRequest("채널명이 존재하지 않습니다.");
 
         return Channel.builder()
@@ -48,7 +49,7 @@ public class Channel extends BaseEntity {
     }
 
     public void addUserChannel(UserChannel userChannel) {
-        if(this.userChannels == null) {
+        if (this.userChannels == null) {
             this.userChannels = new ArrayList<>();
         }
         this.userChannels.add(userChannel);
@@ -56,7 +57,16 @@ public class Channel extends BaseEntity {
     }
 
     public boolean isRegisterUser(Long userId) {
-        if(isEmpty(this.userChannels)) return false;
+        if (isEmpty(this.userChannels)) return false;
         return this.userChannels.stream().anyMatch(uc -> userId.equals(uc.getUser().getUserId()));
+    }
+
+    public void isRegisterUserWithException(Long userId) {
+        if (isEmpty(this.userChannels)) throw BasicException.ofBadRequest("userId is null");
+        boolean isExist = this.isRegisterUser(userId);
+
+        if (!isExist) {
+            throw BasicException.ofBadRequest(String.format("channelId: %d, userId: %d 해당 채널에 등록되지 않은 유저", this.channelId, userId));
+        }
     }
 }

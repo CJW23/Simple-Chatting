@@ -1,7 +1,7 @@
 package com.cjw.chatting.controller.channel;
 
 import com.cjw.chatting.dto.ChannelDto.CreateChannelDto;
-import com.cjw.chatting.service.ChannelService;
+import com.cjw.chatting.service.channel.ChannelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

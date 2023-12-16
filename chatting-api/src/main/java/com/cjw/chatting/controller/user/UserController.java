@@ -1,7 +1,7 @@
-package com.cjw.chatting.controller.channel;
+package com.cjw.chatting.controller.user;
 
 import com.cjw.chatting.dto.UserDto.CreateUserDto;
-import com.cjw.chatting.service.UserService;
+import com.cjw.chatting.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
