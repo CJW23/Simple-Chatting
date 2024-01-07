@@ -1,5 +1,15 @@
 server:
-  port: 8090
+  port: 8080
 spring:
   kafka:
     group-id: group-simple-chatting
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1001974487126-fcm3n94a02tuhffrv59fssrc6e5hsig0.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - profile
+              - email

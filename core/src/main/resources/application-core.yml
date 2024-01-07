@@ -1,10 +1,10 @@
 spring:
   datasource:
     hikari:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=UTC&characterEncoding=UTF-8
+      driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:8889/chatting?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: awdsd123
+    password: root
   jpa:
     hibernate:
       naming:
